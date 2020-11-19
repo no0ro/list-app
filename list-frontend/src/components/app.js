@@ -1,9 +1,8 @@
-// application main entry point
-
 class App {
     constructor() {
-        this.list = new List() // necessary rn?
+        this.list = new List() // bc inside new list is new item?
     }
+
     test(){
         console.log("inside App.js")
     }
@@ -11,15 +10,3 @@ class App {
 
 
 
-// {…}
-// ​
-// list: {…}
-// ​​
-// adapter: Object { baseURL: "http://localhost:3000/lists" }
-// ​​
-// title: undefined
-// ​​
-// <prototype>: Object { … }
-// ​
-// <prototype>: Object { … }
-// index.js:9:13

@@ -10,46 +10,60 @@
   </head>
 
   <body>
-    <div class="container-fluid"> 
+    <div id="app-container" class="container-fluid"> 
 
-      <div id="list-header" > 
-        display app branding
-      </div>
+        <div id="list-header"> display app branding </div>
 
-    
         <form class="add-list-form">
-          <h3>Add a List!</h3>
-  
-          <input
-            type="text"
-            name="name"
-            value=""
-            placeholder="List Title"
-            class="input-text"
-          />
-          <br />
-            <!--  Populate with 10 inputs, ok if submitted and left nil. then add more manually one by one in list if have more
-              <input
-            type="text"
-            name="item"
-            value=""
-            placeholder="item"
-            class="input-text"
-          />
-          <br /> -->
-    
-          <input
-            type="submit"
-            name="submit"
-            value="Create List"
-            class="submit"
-          />
+        <h3>Add a List!</h3>
+            <input type="text" name="name" value="" placeholder="List Title" class="input-text"/>
+            <input type="submit" name="submit" value="Create List" class="submit"/>
         </form>
-   
+    
 
-      <div class='card' id="list-collection" style="width: 18rem;"> 
-        
-      </div>
+        <div class='card' style="width: 18rem; border-color: black;"> 
+          <div id="all-lists"> 
+          --> look at Toy Challenge to see how iterated and where put Ul
+          --> what does Toy Challenge HTML DOM look like?
+          </div>
+        </div> <br>
+
+        <div class="card" style="width: 18rem; border-color: black;"">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Cras justo odio</li>
+            <li class="list-group-item">Dapibus ac facilisis in</li>
+            <li class="list-group-item">Vestibulum at eros</li>
+          </ul>
+          <div class="card-body">
+            <a href="#" class="card-link">Card link</a>
+            <a href="#" class="card-link">Another link</a>
+          </div>
+        </div><br>
+
+
+        <div class="card" style="width: 18rem; border-color: black;">
+          <div class="card-body">
+            <h5 class="card-title">Grocery List</h5>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">bananas</li>
+            <li class="list-group-item">kombucha</li>
+            <li class="list-group-item">chocolate</li>
+            <li class="list-group-item">Look at lab that added - DELETE [X] button</li>
+            <li class="list-group-item">Add Item expand into item input?</li>
+          </ul>
+          <div class="card-body">
+            <a href="#" class="card-link">Add Item</a>
+            <a href="#" class="card-link">Delete List</a>
+          </div>
+        </div>
+
+       
+
+
 
       <script type="application/javascript" src="src/components/app.js" charset="UTF-8"></script>
       <script type="application/javascript" src="src/index.js" charset="UTF-8"></script>

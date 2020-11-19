@@ -1,25 +1,31 @@
-console.log('FIRST LINE Hit index.js')
+console.log('FIRST LINE - index.js')
 
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () =>  {
     const app = new App()
     // console.log(app)
+    const list = new List()
+    console.log(list.getFetchAndMakeLists())
+    console.log('back in listener')
 }) 
 
 
-function getLists() {
-    return fetch('http://localhost:3000/lists')
-        .then( response => response.json())
-        // .then( jsonObj => {
-        //     return console.log(jsonObj)
-        // })  
-}
 
-getLists().then(lists => {
-    lists.forEach(list => {
-    this.renderList(list)
-    })
-})
+
+
+// function getAllLists() {
+//     return fetch('http://localhost:3000/lists')
+//         .then( response => response.json())
+//         // .then( jsonObj => {
+//         //     return console.log(jsonObj) // returns array of objects
+//         // })  
+// }
+
+// getAllLists().then(lists => {
+//     lists.forEach(list => {
+//     this.renderList(list)
+//     })
+// })
 
 //   render the card skeleton - div card / ul
   function renderList(list) {
@@ -31,33 +37,10 @@ getLists().then(lists => {
     ul.setAttribute('class', 'list-group')
     ul.setAttribute('class', 'list-group-flush')
 
-    let divListCollection = document.getElementById('list-collection')
+    let divListCollection = document.getElementById('all-lists')
    
     ul.append(li ) // change to TitleLi / chnge formatting so li is diff than title via bootstrap
     divListCollection.append(ul)
   }
 
 
-// // insert Item here
-
-// // delete button (for each item )
-//     // let btn = document.createElement('button')
-//     // btn.setAttribute('class', 'delete-btn')
-//     // btn.setAttribute('id', item.id)
-//     // btn.innerText = "Delete"
-//     // btn.addEventListener('click', (e) => {
-//     //   console.log(e.target.dataset);
-//     //   delete_meth(e)
-//     // })
-
-//   }
-
-
-
-// test that we can get data from the backend
-    // const BACKEND_URL = 'localhost:3000';
-    // fetch(`${BACKEND_URL}/test`)
-    //   .then(response => response.json())
-    //   .then(parsedResponse => console.log(parsedResponse));
-
- 

@@ -1,30 +1,27 @@
 class List {
-    // static formHTML(list){
-    //     return()
-    // }
-    // get formHTML(){
-    //     return Location.formHTML(this)
-    // }
-
     constructor(title) {
-        this.adapter = new ListAdapter();
-        this.title = title;
+        this.adapter = new ListAdapter()
+        this.title = title
     }
-
-
 
     getFetchAndMakeLists() {
         console.log("inside getfetchWndmakelists - list component")
-        this.adapter.getLists()
+         let json = this.adapter.getAllLists()
             .then(lists => {
                 lists.forEach(list => {
-                this.renderList(list)
+                this.renderList(list) 
         })
     })
+
+    // console.log(json)
+    return json
     }
 
     // RENDER List Container 
+    // Next, call & iterate addItems() + add listener to delete button
+    // addItems / renderItems should be in Item component
     renderList(list) {
+        console.log("inside renderList- list component")
         let li = document.createElement('li')
         li.innerText = list.title
         li.setAttribute('class', 'list-group-item')
@@ -33,26 +30,12 @@ class List {
         ul.setAttribute('class', 'list-group')
         ul.setAttribute('class', 'list-group-flush')
 
-        let divListCollection = document.getElementById('list-collection')
-       
-        ul.append(li ) // change to TitleLi / chnge formatting so li is diff than title via bootstrap
+        let divListCollection = document.getElementById('all-lists')
+        // console.log(li)
+        ul.append(li) 
         divListCollection.append(ul)
-        
         // Append "add Item"  button with listener on button of List / divListCollection.
     }
-
-
-
-
-    // create Item 
-            // description 
-            // X  button to delete 
-
-    // Render Items
-            // createNewItem() {
-
-            //}
-  
 }
 
 
@@ -83,3 +66,65 @@ class List {
 // - marked urgent! aka change color
 // // - has a title & description 
 // - 
+
+
+
+// possible Functions
+
+    // static formHTML(list){
+    //     return()
+    // }
+    // get formHTML(){
+    //     return Location.formHTML(this)
+    // }
+
+    // create Item 
+        // description 
+        // X  button to delete 
+
+    // Render Items
+            // createNewItem() {
+
+            //}
+  
+         
+// _______________________________________
+// differemt way to render HTML
+    // html(){
+    //     return(`
+    //         <div class="card-body">
+    //           <h5 class="card-title">${this.title}</h5>  
+    //             <ul class="list-group list-group-flush">
+    //                 ${this.createItemLis()}
+    //             </ul>
+    //         </div>
+    //     `)
+    // }
+
+    // EXPERIMENTING with ^
+    // renderList(lists) {
+    //     console.log("inside renderList- list component")
+    //     // console.log(lists)
+    //     // let test = document.getElementById('app-container')
+    //     let divListCollection = document.getElementById('all-lists')
+        
+    //     let html = ""
+    //     let x = lists.forEach(list => {
+    //         console.log(list)
+
+    //         return html +=
+    //             (`
+    //                 <div class='card' style="width: 18rem;"> 
+    //                 <div class="card-body">
+    //                 <h5 class="card-title">${this.list.title}</h5>  
+    //                     <ul class="list-group list-group-flush">
+    //                         <li> Example Item </li
+    //                     </ul>
+    //                 </div>
+    //                 </div>
+    //             `)
+    //     })
+    //     // test.parentNode.insertBefore(html, test.nextSibling)
+          
+    //     divListCollection.innerHTML = html
+    // }
