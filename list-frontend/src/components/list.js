@@ -9,37 +9,95 @@ class List {
          
         let json = this.adapter.getAllLists() // returns arr of list obj's
             .then(arrOfListObjects => { // .then puts the responce fn inside the onFulfilled:[] array property. promise obj is stored in let json
-                arrOfListObjects.forEach(listObject => {
-                this.renderList(listObject) 
-                console.log("hi")
-        })
+                this.renderList(arrOfListObjects)
+                // arrOfListObjects.forEach(listObject => {
+                // this.renderList(listObject) 
+                // console.log("hi")
+        // })
     })
 
     // console.log(json)
-    return json
+    // return json
     }
 
     // RENDER List Container 
     // ^^ goal? render the card skeleton - div card / ul
             // Next, call & iterate addItems() + add listener to delete button
             // addItems / renderItems should be in Item component
-    renderList(listObject) {
+    renderList(arrOfListObjects) {
         console.log("inside renderList- list component")
-        let li = document.createElement('li')
-        li.innerText = listObject.title
-        li.setAttribute('class', 'list-group-item')
-    
-        let ul = document.createElement('ul')
-        ul.setAttribute('class', 'list-group')
-        ul.setAttribute('class', 'list-group-flush')
 
-        let divListCollection = document.getElementById('all-lists')
-        // console.log(li)
-        ul.append(li) 
-        divListCollection.append(ul)
-        // Append "add Item"  button with listener on button of List / divListCollection.
-    } 
+        arrOfListObjects.forEach(listObject => {
+            console.log("hi")
+            let allListsDiv = document.getElementById('card-shell')
+            let br =  document.createElement('br')
+
+        // <div class="card-body">
+                let cardBodyDiv = document.createElement('div')
+                cardBodyDiv.setAttribute('class', 'card-body')
+            // <h5 class="card-title">Card title</h5>
+                let cardTitle = document.createElement('h5')
+                cardTitle.setAttribute('class', 'card-title')
+                cardTitle.innerText = listObject.title
+            // append ^ 
+                cardBodyDiv.append(cardTitle)
+                allListsDiv.append(cardBodyDiv)
+
+        // start items
+            // <ul class="list-group list-group-flush">
+                    // Item Display - Ul container 
+                    let itemUl = document.createElement('ul')
+                    itemUl.setAttribute('class', 'list-group')
+                    itemUl.setAttribute('class', 'list-group-flush') 
+                    
+                // <li class="list-group-item">Cras justo odio</li>
+                    // Item Display - Li
+                    let itemLi = document.createElement('li')
+                    itemLi.setAttribute('class', 'list-group-item')
+                    itemLi.innerText = listObject.id // index[0]
+
+            // append ^
+                    itemUl.append(itemLi)
+                    allListsDiv.append(itemUl)
+                    allListsDiv.append(br)
+    
+    })
+} 
 }
+
+// // <div class="card-body">
+//         let cardBodyDiv = document.createElement('div')
+//         cardBodyDiv.setAttribute('class', 'card-body')
+
+//     // <h5 class="card-title">Card title</h5>
+//         let cardTitle = document.createElement('h5')
+//         cardTitle.setAttribute('class', 'card-title')
+//         cardTitle.innerText = listObject.title
+//     // append ^ 
+//         cardBodyDiv.append(cardTitle)
+
+
+// // <ul class="list-group list-group-flush">
+//         // Item Display - Ul container 
+//         let itemUl = document.createElement('ul')
+//         itemUl.setAttribute('class', 'list-group')
+//         itemUl.setAttribute('class', 'list-group-flush')
+
+//     // <li class="list-group-item">Cras justo odio</li>
+//         // Item Display - Li
+//         let itemLi = document.createElement('li')
+//         itemLi.innerText = ?listObject?.name
+//         itemLi.setAttribute('class', 'list-group-item')
+
+//     // append them 
+//         itemUl.append(itemLi)
+
+// // append all 
+
+
+
+
+
 
 
 // Think it through
