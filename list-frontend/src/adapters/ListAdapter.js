@@ -8,31 +8,16 @@ class ListAdapter {
     }
 
     // fetch - return List.all - array of List obejcts
-    //static??
+    // static??
      getAllLists() {
-        console.log("inside ListAdapter getAllLists()")
+        console.log("inside getAllLists() - ListAdapter ")
 
          return fetch(this.baseURL)
-            .then( response => response.json())
-            .then( data => data) // console.log(data) // returns array of objects
+            .then( response => response.json()) // .then puts the responce fn inside the onFulfilled:[] array property. thats it! 
+            // ^ returns array of objects
             .catch(console.error)
     }
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
 
 
 

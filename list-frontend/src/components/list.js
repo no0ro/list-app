@@ -6,10 +6,12 @@ class List {
 
     getFetchAndMakeLists() {
         console.log("inside getfetchWndmakelists - list component")
-         let json = this.adapter.getAllLists()
-            .then(lists => {
-                lists.forEach(list => {
-                this.renderList(list) 
+         
+        let json = this.adapter.getAllLists() // returns arr of list obj's
+            .then(arrOfListObjects => { // .then puts the responce fn inside the onFulfilled:[] array property. promise obj is stored in let json
+                arrOfListObjects.forEach(listObject => {
+                this.renderList(listObject) 
+                console.log("hi")
         })
     })
 
@@ -18,12 +20,13 @@ class List {
     }
 
     // RENDER List Container 
-    // Next, call & iterate addItems() + add listener to delete button
-    // addItems / renderItems should be in Item component
-    renderList(list) {
+    // ^^ goal? render the card skeleton - div card / ul
+            // Next, call & iterate addItems() + add listener to delete button
+            // addItems / renderItems should be in Item component
+    renderList(listObject) {
         console.log("inside renderList- list component")
         let li = document.createElement('li')
-        li.innerText = list.title
+        li.innerText = listObject.title
         li.setAttribute('class', 'list-group-item')
     
         let ul = document.createElement('ul')
@@ -35,10 +38,11 @@ class List {
         ul.append(li) 
         divListCollection.append(ul)
         // Append "add Item"  button with listener on button of List / divListCollection.
-    }
+    } 
 }
 
 
+// Think it through
 // renderItems() {
         // pass in Array of items, then iterate over and call 
         // render() (defined in items component) on each arr item. 
