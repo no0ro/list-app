@@ -5,6 +5,10 @@ class List {
         this.items = [];
         this.lists = [];
     }
+
+    // renderItems() {
+    //     return this.attributes.items.map(item => item.render()).join('');
+    // }
 }
 
 function getLists() {
@@ -23,38 +27,49 @@ function getLists() {
 }
 
 
+
+// render Lists ALREADY IN DB
 function renderListHtml(listObjects){
     // iterate through List Objects, 
     let allLists = document.getElementById("all-lists")
 
     listObjects.forEach((listObj) => {
-        // Create List Object & added title
-        let title = listObj.attributes.title
-        let newList = new List(title)
+        console.log(listObj)
 
+        // Grab title
+        let title = listObj.attributes.title // "Grocery List"
+        
         // <h3> Grocery List </h3>
         let h3 = document.createElement('h3')
         h3.innerText = title 
         allLists.append(h3)
-        console.log(listObj)
-      
-        
+
+
+        // <ul id="items"> </ul> 
+        let ul = document.createElement('ul')
+        ul.className = "items"
         // get all Items from the List Obj, save in arr
-        let itemsArr = makeArrOfItems(listObj)
-        newList.items = itemsArr
-        console.log(newList)
-        console.log(itemsArr)
+        ul.innerHTML = makeArrOfItems(listObj) //taskList.renderTask() // userinput pull from Taskrender
+            // append to <li> ^
+        allLists.append(ul)
     
     })
 }
 
+function renderItems() {
+    return this.items.map(item => console.log(item))
+}
+
+// createNewItem("")
 function makeArrOfItems(listObjects){
+    console.log(listObjects)
     itemArray = []
     listObjects.attributes.items.map( item => {
         itemArray.push(item.name)
     })
     return itemArray
 }
+
 
 
 
@@ -105,3 +120,38 @@ function makeArrOfItems(listObjects){
 // } 
 
 
+
+// createNewItem("")
+// function makeItemInstances(listObjects){
+//     console.log(listObjects)
+//     itemArray = []
+//     listObjects.attributes.items.map( item => {
+//         const newItem = new Item(item.name); // create item 
+//         let x = LISTITEM.items.newItem // assign it to List
+//         console.log(x)
+//         let x = createNewItem(item.name) // maybe could call this fn if list.item.length < . aka user submitted only one task so wont need to iterate
+
+//         // calls new Item, 
+//     function createNewItem(name){
+//         const newItem = new Item(name);
+//         console.log(name)
+//         console.log(newItem)
+//         this.items.push(newItem);
+//     }
+//     })
+// }
+
+
+// // createNewItem("")
+// function makeArrOfItems(listObjects){
+//     console.log(listObjects)
+//     itemArray = []
+//     listObjects.attributes.items.map( item => {
+//         console.log(item)
+//         let x = createNewItem(item.name)
+//         itemArray.push(x)
+//         // itemArray.push(item.name)
+
+//     })
+//     return itemArray
+// }
