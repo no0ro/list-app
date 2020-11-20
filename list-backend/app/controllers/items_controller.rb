@@ -4,7 +4,6 @@ class ItemsController < ApplicationController
       options = {
         include: [:list]
       }
-
       render json: ItemSerializer.new(items, options)
         # render json: {status: 'SUCCESS', message: 'Loaded all posts', data: lists}, status: :ok
     end
