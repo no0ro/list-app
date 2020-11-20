@@ -1,35 +1,81 @@
 class List {
     constructor(title) {
-        this.adapter = new ListAdapter()
         this.title = title
-        this.items = []
+        this.items = [] 
+        this.lists = []
     }
 
-    createNewItem(name){
-        const newItem = new Item(name); // instanciate new Ite.],
-        this.items.push(newItem) // push item into items array
+    getLists() {
+        console.log("inside getLists()")
+
+         return fetch("http://localhost:3000/lists")
+            .then(response => response.json()) // .then puts the responce fn inside the onFulfilled:[] array property. thats it! 
+            .then(json => (json.data))
+            // .then(data => {
+            //     console.log(data[1].attributes.title) // "Faith's Wedding: MOH"
+            //     console.log(data[1].attributes.items[0].name) // "Plan Bachelorette"
+
+            // })
+            // ^ returns array of objects
+            .catch(console.error)
     }
+
+    getFetchAndMakeLists() {
+        console.log("inside getfetchWndmakelists - list component")
+        this.adapter.getLists()
+            .then(lists => this.renderLists(lists))  
+            .then(() => this.appendLists())
+            // -> render list html 
+            // 
+    }
+
 
     // JUST making lots of <li> -- call this inside of renderList?
     renderItems() {
         return this.items.map((item) => item.render()).join("");
     }
 
-    getFetchAndMakeLists() {
-        console.log("inside getfetchWndmakelists - list component")
-         
-        let json = this.adapter.getAllLists() // returns arr of list obj's
-            .then(arrOfListObjects => { // .then puts the responce fn inside the onFulfilled:[] array property. promise obj is stored in let json
-                this.renderList(arrOfListObjects)
-                // arrOfListObjects.forEach(listObject => {
-                // this.renderList(listObject) 
-                // console.log("hi")
-        // })
-    })
 
-    // console.log(json)
-    // return json
+    renderAList(){
+
     }
+
+    appendLists(){
+        for (let list of lists){
+            console.log("append list")
+        }
+    }
+
+
+
+    makeArrOfItems(items){
+        let itemsArr = []
+        for (let item of items){
+            itemsArr.push(item.name)
+        }
+        return itemsArr
+    }
+
+    createNewItem(name){
+        const newItem = new Items(); // instanciate new Ite.],
+        this.items.push(newItem) // push item into items array
+    }
+
+    renderLists(lists){
+        console.log("in renderLists")
+        for (let list of lists){
+            //let title = this.attributes.title
+            let items = this.makeArrOfItems(list.attributes.items)
+            // (WHERE LEFT OFF) this.createNewItem(items)
+            console.log(items) // 0: "Plan Bachelorette" 1: "Speech"
+            console.log(title) // 0: "Plan Bachelorette" 1: "Speech"
+
+
+            //this.lists.push(new List(list.attributes.title, items))
+            //console.log(this.lists)
+        }
+    }
+
 
     // RENDER List Container 
     // ^^ goal? render the card skeleton - div card / ul
@@ -37,8 +83,9 @@ class List {
             // addItems / renderItems should be in Item component
     renderList(arrOfListObjects) {
         console.log("inside renderList- list component")
+        console.log(arrOfListObjects)
 
-        arrOfListObjects.forEach(listObject => {
+        arrOfListObjects.map(listObject => {
             console.log("hi")
             let allListsDiv = document.getElementById('card-shell')
             let br =  document.createElement('br')
@@ -75,6 +122,22 @@ class List {
     })
 } 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // // <div class="card-body">
 //         let cardBodyDiv = document.createElement('div')

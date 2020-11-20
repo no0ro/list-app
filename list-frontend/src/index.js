@@ -1,9 +1,9 @@
 console.log('index.js - FIRST LINE')
 
 document.addEventListener('DOMContentLoaded', () =>  {
-    const app = new App()
-    // app.title = "Hello" // an object of, List{} that has ListAdapter{} obj in it
-    console.log(app) 
+    getLists();
+    
+  
 
     const list = new List()
     // list.title = "HI" // an object of, that has ListAdapter{} obj in it. so skips the List{} step up above. 
@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () =>  {
  
     list.getFetchAndMakeLists()
     // console.log(list.getFetchAndMakeLists()) // if try to replace "list" with "app" says getFetchAndMakeLists() is not a fn 
-        // NOTE: when getAllLists returns the Response Object from fetch, it gets saved in Promise Obj's `value:` property. this is what triggers Promise's onFulfilled:[ `aka .then(fn)`] to move to microqueue 
+        // NOTE: when getLists returns the Response Object from fetch, it gets saved in Promise Obj's `value:` property. this is what triggers Promise's onFulfilled:[ `aka .then(fn)`] to move to microqueue 
         // so now that have data back from fetch, js calls it on list... then iterate from "inside RenderList" to "hi"..5 times
         console.log('back in listener')
    
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () =>  {
 /*  
 WORKS SAME, BUT HAD TO CHANGE A LITTLE
 --> 1st way:  index.js way 
-function getAllLists() {
+function getLists() {
     return fetch('http://localhost:3000/lists')
         .then( response => response.json())
         // .then( jsonObj => {
@@ -36,7 +36,7 @@ function getAllLists() {
         // })  
 }
 
-getAllLists().then(lists => {
+getLists().then(lists => {
     lists.forEach(list => {
     this.renderList(list)
     })
@@ -46,7 +46,7 @@ getAllLists().then(lists => {
 --> 2nd Way: 
 
 # ListAdapter.js 
-    getAllLists() {
+    getLists() {
         return fetch(this.baseURL)
           .then( response => response.json()) // returns array of objects
           // .then( data => data) // returns array of objects
@@ -59,13 +59,13 @@ getAllLists().then(lists => {
     }
 
     getFetchAndMakeLists() {
-        let json = this.adapter.getAllLists() // returns arr of list obj's
+        let json = this.adapter.getLists() // returns arr of list obj's
           .then(arrOfListObjects => {  
               arrOfListObjects.forEach(listObject => {
               this.renderList(listObject) 
       })
     })
 
-- @ .then(arrOfList...) is when i called getAllLists() in first way 
+- @ .then(arrOfList...) is when i called getLists() in first way 
 -  dont think i need the line .then( data => data) // returns array of objects
 */
