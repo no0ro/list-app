@@ -1,6 +1,6 @@
 class Item {
     constructor(name) {
-        this.item = new Item(name)
+        // this.item = new Item(name)
         this.name = name;
         this.items = [];
     }
@@ -22,7 +22,7 @@ function render() {
 
 /*
 # GOAL List Structure
-   <div id="all-lists">
+   <div class="lists">
         <h3> Grocery List </h3>
         <ul id=items> 
             <li> "Banana" </li>

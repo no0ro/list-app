@@ -31,7 +31,7 @@ function getLists() {
 // render Lists ALREADY IN DB
 function renderListHtml(listObjects){
     // iterate through List Objects, 
-    let allLists = document.getElementById("all-lists")
+    let allLists = document.getElementById("lists-index")
 
     listObjects.forEach((listObj) => {
         console.log(listObj)
