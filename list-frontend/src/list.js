@@ -1,73 +1,81 @@
-const listForm = ` 
-    <label for="list-title">List Title:</label>
-    <input type="text" name="list-title" placeholder="List Title" value=""  class="input-text"/>
-`
-
 class List {
     constructor(title) {
-        this.title = title
-        this.items = [] 
-        this.lists = []
+        // this.item = new Item(name)
+        this.title = title;
+        this.items = [];
+        this.lists = [];
     }
-
-
-
-
 }
+
+// function createNewItem(name){
+//     const newItem = new Item(name); // instanciate new Ite.],
+//    return this.items.push(newItem) // push item into items array
+// }
 
 function getLists() {
     console.log("inside getLists()")
     fetch("http://localhost:3000/lists")
-        .then(response => response.json()) // .then puts the responce fn inside the onFulfilled:[] array property. thats it! 
+        // .then puts our responcefn inside the hidden onFulfilled:[] Array Property, which gets triggered when we get a value back  
+        .then(response => response.json()) 
         .then(json => (json.data))
         .then(data => {
             // console.log(data)
             renderListHtml(data)
         } )
-            // .then(data => {
-            //     console.log(data[1].attributes.title) // "Faith's Wedding: MOH"
-            //     console.log(data[1].attributes.items[0].name) // "Plan Bachelorette"
-
-            // })
-            // ^ returns array of objects
+            // console.log(data[1].attributes.title) // "Faith's Wedding: MOH"
+            // console.log(data[1].attributes.items[0].name) // "Plan Bachelorette"
         .catch(console.error)
 }
-
 
 
 function renderListHtml(listObjects){
     // iterate through List Objects, 
     let allLists = document.getElementById("all-lists")
 
-    listObjects.forEach((list) => {
+    listObjects.forEach((listObj) => {
         // Created List Object & added title
-        let title = list.attributes.title
+        let title = listObj.attributes.title
         let newList = new List(title)
 
         // <h3> Grocery List </h3>
         let h3 = document.createElement('h3')
         h3.innerText = title 
         allLists.append(h3)
+        console.log(listObj)
 
-
-
-
-        //let ul = document.createElement('ul')
-        
-        
-
-
-
-
+        let itemsArr = makeArrOfItems(listObj)
+    
     })
+}
+
+function makeArrOfItems(listObjects){
+    itemArray = []
+    listObjects.attributes.items.map( item => {
+        let x = this.createNewItem(item.name)
+        console.log(x)
+        // var newItem = new Item(item.name)
+        itemArray.push(newItem)
+
+        // itemArray.push(item.name)
+    })
+    return itemArray
+   
 }
 
 
 
 
+// let itemsArr =  Object.keys(listObj)
+// console.log(itemsArr)
+
 function createNewItem(data){
-    console.log(data)
-    const newItem = new Items(); // instanciate new Ite.],
+    let x = new List("Food")
+    let y = new Item(data)
+    console.log(y)
+    return y
+console.log(data)
+    const newItem = new Item(name); // instanciate new Ite.],
+    newItem
     this.items.push(newItem) // push item into items array
 }
    
@@ -78,9 +86,7 @@ function renderItems() {
 }
 
 
-    function renderAList(){
-
-    }
+   
 
     function appendLists(){
         for (let list of lists){
@@ -90,13 +96,7 @@ function renderItems() {
 
 
 
-    function makeArrOfItems(items){
-        let itemsArr = []
-        for (let item of items){
-            itemsArr.push(item.name)
-        }
-        return itemsArr
-    }
+
 
 
 
