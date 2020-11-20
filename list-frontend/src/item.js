@@ -14,5 +14,20 @@ class Item {
         `;
            // later, for delete add <button>
     }
-
 }
+
+/*
+
+   <div id="all-lists">
+        <h3> Grocery List </h3>
+        <ul id=items> 
+            <li> "Banana" </li>
+            <li> "Pizza" </li>
+            <li> "Ice Cream" </li>
+            <li> "Mustard" </li>
+        </ul>
+    </div>  
+
+
+
+*/

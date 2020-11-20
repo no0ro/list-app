@@ -11,17 +11,18 @@ class List {
     }
 
 
+
+
 }
 
 function getLists() {
     console.log("inside getLists()")
-
     fetch("http://localhost:3000/lists")
         .then(response => response.json()) // .then puts the responce fn inside the onFulfilled:[] array property. thats it! 
         .then(json => (json.data))
         .then(data => {
-            console.log(data)
-            renderList(data)
+            // console.log(data)
+            renderListHtml(data)
         } )
             // .then(data => {
             //     console.log(data[1].attributes.title) // "Faith's Wedding: MOH"
@@ -32,6 +33,43 @@ function getLists() {
         .catch(console.error)
 }
 
+
+
+function renderListHtml(listObjects){
+    // iterate through List Objects, 
+    let allLists = document.getElementById("all-lists")
+
+    listObjects.forEach((list) => {
+        // Created List Object & added title
+        let title = list.attributes.title
+        let newList = new List(title)
+
+        // <h3> Grocery List </h3>
+        let h3 = document.createElement('h3')
+        h3.innerText = title 
+        allLists.append(h3)
+
+
+
+
+        //let ul = document.createElement('ul')
+        
+        
+
+
+
+
+    })
+}
+
+
+
+
+function createNewItem(data){
+    console.log(data)
+    const newItem = new Items(); // instanciate new Ite.],
+    this.items.push(newItem) // push item into items array
+}
    
 
 // JUST making lots of <li> -- call this inside of renderList?
@@ -60,10 +98,7 @@ function renderItems() {
         return itemsArr
     }
 
-    function createNewItem(name){
-        const newItem = new Items(); // instanciate new Ite.],
-        this.items.push(newItem) // push item into items array
-    }
+
 
     function renderLists(lists){
         console.log("in renderLists")
