@@ -2,6 +2,17 @@ class List {
     constructor(title) {
         this.adapter = new ListAdapter()
         this.title = title
+        this.items = []
+    }
+
+    createNewItem(name){
+        const newItem = new Item(name); // instanciate new Ite.],
+        this.items.push(newItem) // push item into items array
+    }
+
+    // JUST making lots of <li> -- call this inside of renderList?
+    renderItems() {
+        return this.items.map((item) => item.render()).join("");
     }
 
     getFetchAndMakeLists() {
