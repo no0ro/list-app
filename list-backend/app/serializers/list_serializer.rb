@@ -1,7 +1,10 @@
 class ListSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :title, :items, :id
+  # specify what attributes we want to use
+  attributes :title, :items, :created_at
 
-  has_many :items, serializer: ItemSerializer
+  # attributes :title, :items, :id
+
+  # has_many :items, serializer: ItemSerializer
   
 end
