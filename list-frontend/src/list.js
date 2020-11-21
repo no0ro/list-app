@@ -10,8 +10,8 @@ class List {
     constructor(title) {
         // this.item = new Item(name)
         this.title = title;
-        this.items = [];
-        this.lists = [];
+        this.items = []; // collection of item objects
+        // this.lists = [];
     }
 
     // return false aka preventDefault
@@ -41,8 +41,9 @@ function getLists() {
         .then(json => (json.data))
         .then(data => {
             // console.log(data)
+            //createAList(data)
             renderListHtml(data)
-            List.newListForm()
+            List.newListForm() // render static
         } )
             // console.log(data[1].attributes.title) // "Faith's Wedding: MOH"
             // console.log(data[1].attributes.items[0].name) // "Plan Bachelorette"
@@ -55,7 +56,9 @@ function getLists() {
 function makeList(){}
 
 function postList() {
+    // event.preventDefault()  -- Happened in form via false
     console.log("post")
+    // pass body JSON srting, 
    let formatInputData = {
        title: document.getElementById('title-input').value,
        name: document.getElementById('name-input').value
@@ -71,17 +74,39 @@ function postList() {
     console.log("before fetch")
     fetch('http://localhost:3000/lists', configObj) 
       .then( response => response.json())
-      .then (function (listObj) {
+      .then(json => (json.data))
+      .then ( data => {
+        // createAListObj(data)
+
         console.log("inside fetch")
-        console.log(listObj)
+        console.log(data)
         // renderToy(listObj) // render List to DOM
         // divToyCollection.appendChild(newToy)
       })
   }
 
 
+// // from post?
+// function createAListObj(data){
+//     console.log(data)
+  
+//     let list = new List(data.attributes.title)
+//     console.log(list)
+//     let item = new Item(data.attributes.items[0].name, list.id)
+//     console.log(" below is item")
+//     console.log(item)
+
+   
+//     let newList = list.items.push(item) 
+//     console.log("below is newList")
+//     console.log(newList)
+//     console.log(newList.items)
+// }
 
 
+function clearFormInput() {
+    
+}
 
 function createNewItem(existingList, name){
     console.log(existingList)
@@ -93,13 +118,16 @@ function createNewItem(existingList, name){
     // so then for update, just render
 }
 
-// render Lists ALREADY IN DB
+
+// render Lists ALREADY IN DB - AKA this would apply to POST too!
 function renderListHtml(listObjects){
     // iterate through List Objects, 
     let allLists = document.getElementById("lists-index")
 
     listObjects.forEach((listObj) => {
         console.log(listObj)
+
+    // create empty div to apprend listener to in the future
 
     // Grab title
         let title = listObj.attributes.title // "Grocery List"
@@ -112,6 +140,7 @@ function renderListHtml(listObjects){
     // <ul id="items"> </ul> 
         let ul = document.createElement('ul')
         ul.className = "items"
+        // let ul = getElementById("add-items")
         // get all Items from the List Obj, save in arr
         ul.innerHTML = makeArrOfItems(listObj) //taskList.renderTask() // userinput pull from Taskrender
             // append to <li> ^
@@ -120,7 +149,7 @@ function renderListHtml(listObjects){
     // <input type="text" id="newItemText">
         let input1 = document.createElement('input')
         input1.setAttribute('type', 'text')
-        input1.setAttribute('id', 'newItemText')
+        input1.setAttribute('id', 'newItemInput')
     
     // <input type="button" value="Add an Item" onclick="addItem()">
         let inputButton = document.createElement('input')
@@ -140,29 +169,21 @@ function addItemFromButton(e){
     // - !! save input to that List as Item. 
     console.log("inside addItemFromButton")
     console.log(e)
-    let input = document.getElementById("newItemText");
-    if (input.value.length === 0) {
-        return;
-    }
-    let text = input.value;
+    let input = document.getElementById("newItemInput").value;
+    // if (input.value.length === 0) {
+    //     return;
+    // }
     let newLi = document.createElement("li");
-    newLi.textContent = text;
-    document.getElementById("lists-index").appendChild(newLi);
-    input.value = "";
+    newLi.innerHtml = input;
+    let ul = document.getElementById("add-items");
+    ul.appendChild(newLi)
+    document.getElementById("newItemInput").value = " ";
+
+
+ 
 
 }
 
-
-
-
-// createNewItem()
-
-//     listObjects.attributes.items.map( item => {
-//         const newItem = new Item(item.name); // create item 
-//         let x = LISTITEM.items.newItem // assign it to List
-//         console.log(x)
-//         let x = createNewItem(item.name) // maybe could call this fn if list.item.length < . aka user submitted only one task so wont need to iterate
-//     } 
 
 
 function renderItems() {
@@ -171,13 +192,30 @@ function renderItems() {
 
 // createNewItem("")
 function makeArrOfItems(listObjects){
-    console.log(listObjects)
+    //console.log(listObjects)
     itemArray = []
     listObjects.attributes.items.map( item => {
         itemArray.push(item.name)
     })
     return itemArray
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

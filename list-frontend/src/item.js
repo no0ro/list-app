@@ -1,8 +1,8 @@
 class Item {
-    constructor(name) {
+    constructor(name, list_id) {
         // this.item = new Item(name)
         this.name = name;
-        this.items = [];
+        this.list_id = list_id
     }
 }
 
