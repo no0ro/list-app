@@ -14,10 +14,11 @@ class List {
         this.lists = [];
     }
 
+    // return false aka preventDefault
     static newListForm() { 
         let newFormDiv = document.getElementById('test-list-form')
         newFormDiv.innerHTML = `
-        <form onsubmit="postList();">` + 
+        <form onsubmit="postList(); return false;">` + 
             listFormFields + 
         `
         <input type="submit" name="submit" value="CreatList" />
