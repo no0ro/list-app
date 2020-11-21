@@ -1,7 +1,10 @@
 const listFormFields = `
     <label for="list-title">List Title:</label>
-    <input type="text" name="title" value="" placeholder="List Title" class="input-text"/>
- `
+    <input type="text" name="title" value="" placeholder="List Title" class="input-text" id="title-input"/>
+    <br>
+    <label for="new-item-name">Item:</label>
+    <input type="text" name="new-item-name" value="" placeholder="new item" class="input-text" id="name-input"/>
+    `
 
 class List {
     constructor(title) {
@@ -50,20 +53,21 @@ function getLists() {
 // inside static new/edit
 function makeList(){}
 
-function postList(listFormInput) {
-
+function postList() {
+    console.log("post")
+   let formatInputData = {
+       title: document.getElementById('title-input').value,
+       name: document.getElementById('name-input').value
+   }
     let configObj = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Accept": "application/json"
       },
-      body: JSON.stringify( {
-        title: listFormInput.name.value,
-        name: listFormInput.name.value,
-      })
+      body: JSON.stringify(formatInputData) 
     }
-  
+    console.log("before fetch")
     fetch('http://localhost:3000/lists', configObj) 
       .then( response => response.json())
       .then (function (listObj) {
@@ -76,9 +80,11 @@ function postList(listFormInput) {
 
 
 
+
+
 function createNewItem(existingList, name){
     console.log(existingList)
-    name = event.target.vaue // grab user item input
+    name = event.target.value // grab user item input
     let newItem = new Item(name); // instanciate new Item with user input
     existingList.items.push(newItem) // push this new item onto the List we passed in 
     // return updated List Object
