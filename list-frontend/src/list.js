@@ -10,6 +10,7 @@ class List {
     constructor(title) {
         // this.item = new Item(name)
         this.title = title;
+        // this.id = id
         this.items = []; // collection of item objects
         // this.lists = [];
     }
@@ -125,12 +126,13 @@ function renderListHtml(listObjects){
     let allLists = document.getElementById("lists-index")
 
     listObjects.forEach((listObj) => {
+        console.log("inside renderListHtml")
         console.log(listObj)
 
-    // create empty div to apprend listener to in the future
-
-    // Grab title
         let title = listObj.attributes.title // "Grocery List"
+        let itemName = listObj.attributes.items[0].name
+        let newList = new List(title)
+    // Grab title
         
     // <h3> Grocery List </h3>
         let h3 = document.createElement('h3')
