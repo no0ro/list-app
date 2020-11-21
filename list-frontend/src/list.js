@@ -10,23 +10,20 @@ class List {
         this.items = [];
         this.lists = [];
     }
-        static newListForm() { 
-            let newFormDiv = document.getElementById('test-list-form')
-            newFormDiv.innerHTML = `
-            <form onsubmit="makeList();">` + 
-                listFormFields + 
-            `
-            <input type="submit" name="submit" value="CreatList" />
-            </form>
-            <br>
-            `
-        }
 
+    static newListForm() { 
+        let newFormDiv = document.getElementById('test-list-form')
+        newFormDiv.innerHTML = `
+        <form onsubmit="postList();">` + 
+            listFormFields + 
+        `
+        <input type="submit" name="submit" value="CreatList" />
+        </form>
+        <br>
+        `
     }
 
-  
-
-
+    }
     // renderItems() {
     //     return this.attributes.items.map(item => item.render()).join('');
     // }
@@ -48,10 +45,45 @@ function getLists() {
         .catch(console.error)
 }
 
+
 // called after form is submitted -- create a new List
 // inside static new/edit
-function makeList(){
+function makeList(){}
 
+function postList(listFormInput) {
+
+    let configObj = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify( {
+        title: listFormInput.name.value,
+        name: listFormInput.name.value,
+      })
+    }
+  
+    fetch('http://localhost:3000/lists', configObj) 
+      .then( response => response.json())
+      .then (function (listObj) {
+        console.log("inside fetch")
+        console.log(listObj)
+        // renderToy(listObj) // render List to DOM
+        // divToyCollection.appendChild(newToy)
+      })
+  }
+
+
+
+function createNewItem(existingList, name){
+    console.log(existingList)
+    name = event.target.vaue // grab user item input
+    let newItem = new Item(name); // instanciate new Item with user input
+    existingList.items.push(newItem) // push this new item onto the List we passed in 
+    // return updated List Object
+    // then should pass to an HTML render to take it from JSON to HTML
+    // so then for update, just render
 }
 
 // render Lists ALREADY IN DB
@@ -70,7 +102,6 @@ function renderListHtml(listObjects){
         h3.innerText = title 
         allLists.append(h3)
 
-
     // <ul id="items"> </ul> 
         let ul = document.createElement('ul')
         ul.className = "items"
@@ -79,19 +110,12 @@ function renderListHtml(listObjects){
             // append to <li> ^
         allLists.append(ul)
 
-        //   // <ul id="items"> </ul> 
-        //   let ul = document.getElementById('x')
-        // //   ul.className = "items"
-        //   // get all Items from the List Obj, save in arr
-        //   ul.innerHTML = makeArrOfItems(listObj) //taskList.renderTask() // userinput pull from Taskrender
-        //       // append to <li> ^
-        //   //allLists.append(ul)
-
-
+    // <input type="text" id="newItemText">
         let input1 = document.createElement('input')
         input1.setAttribute('type', 'text')
         input1.setAttribute('id', 'newItemText')
-
+    
+    // <input type="button" value="Add an Item" onclick="addItem()">
         let inputButton = document.createElement('input')
         inputButton.setAttribute('type', 'button')
         inputButton.setAttribute('value', 'Add an Item')
@@ -99,16 +123,14 @@ function renderListHtml(listObjects){
 
         allLists.append(input1)
         allLists.append(inputButton)
-
-
-        // <input type="text" id="newItemText">
-        // <input type="button" value="Add an Item" onclick="addItem()">
-    
     })
 }
 
-
+// Add Patch!! 
 function addItemFromButton(e){
+    // issue is cant append to floating uL and making an empty ul in document is considered null. maybe could add text in a different way 
+    // clear form after click, and reset listener so dont need to refresh the page. 
+    // - !! save input to that List as Item. 
     console.log("inside addItemFromButton")
     console.log(e)
     let input = document.getElementById("newItemText");
@@ -122,6 +144,20 @@ function addItemFromButton(e){
     input.value = "";
 
 }
+
+
+
+
+// createNewItem()
+
+//     listObjects.attributes.items.map( item => {
+//         const newItem = new Item(item.name); // create item 
+//         let x = LISTITEM.items.newItem // assign it to List
+//         console.log(x)
+//         let x = createNewItem(item.name) // maybe could call this fn if list.item.length < . aka user submitted only one task so wont need to iterate
+//     } 
+
+
 function renderItems() {
     return this.items.map(item => console.log(item))
 }
@@ -135,6 +171,7 @@ function makeArrOfItems(listObjects){
     })
     return itemArray
 }
+
 
 
 
