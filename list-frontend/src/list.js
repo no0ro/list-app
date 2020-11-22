@@ -53,7 +53,25 @@ class List {
         let listsIndex = document.getElementById("lists-index")
       
             return `
-                <h3> ${list.title}</h3>
+                <div class="card" style="width: 18rem;  border-color: black;"">
+                    <div class="card-body">
+                        <h5 class="card-title">${list.title}</h5>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                         <li class="list-group-item">${list.items[0].name}</li>
+                    </ul>
+                    <div class="card-body">
+                        <a href="#" class="card-link">Add Item</a>
+                        <a href="#" class="card-link">Delete Item</a>
+                    </div>
+                   
+                            <div> + insert render from items in refactor </div>
+                <br>
+                <div> 
+                </div>
+                <hr>
+                <hr>
+            
             `;
     }
         
