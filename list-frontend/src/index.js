@@ -13,6 +13,9 @@ document.addEventListener('DOMContentLoaded', () =>  {
     // newMovieList.items.push(newMovie2)
     // console.log(newMovieList)
 
-    
-    getLists();
+    // TO DO - How do i start the app w/o next lines?
+  let list = new List()
+  list.fetchAndLoadLists()
+
+    console.log("back in index.js")
 }) 
