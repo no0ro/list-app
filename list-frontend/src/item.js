@@ -1,8 +1,10 @@
 class Item {
-    constructor(name) {
+    constructor(name, id, list_id, created_at) {
         // this.item = new Item(name)
         this.name = name
-        // this.list_id = list_id
+        this.id = id
+        this.list_id = list_id
+        this.created_at = created_at
     }
 }
 
