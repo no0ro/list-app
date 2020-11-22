@@ -11,14 +11,14 @@ const listFormFields = `
     <input type="text" name="new-item-name" value="" placeholder="new item" class="input-text" id="name-input"/>
     `
 
-`
-<${this.title}>
-    <id=`"items ${list.id}"`>
-        display/render current this.items (aka items array)
-<${this.addItemForm}> 
+// `
+// <${this.title}>
+//     <id=`"items ${list.id}"`>
+//         display/render current this.items (aka items array)
+// <${this.addItemForm}> 
 
-// addItemForm issues a patch that displays inside the 
-`
+// // addItemForm issues a patch that displays inside the 
+// `
 
 class List {
     constructor(title, id, created_at ) {
