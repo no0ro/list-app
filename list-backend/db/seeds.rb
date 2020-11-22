@@ -41,7 +41,24 @@ l4.items.create(name: " Send out Invites")
 l5.items.create(name: "Titanic")
 
 
+> @test = List.last
+ => #<List id: 41, title: "Movies To Watch", created_at: "2020-11-21 18:18:38", updated_at: "2020-11-21 18:18:38"> 
+> @test.items
+ => #<ActiveRecord::Associations::CollectionProxy [#<Item id: 69, name: "Titanic", list_id: 41, created_at: "2020-11-21 18:18:38", updated_at: "2020-11-21 18:18:38">]> 
+> @harry = Item.create(name: "Harry Met Sally")
+ => #<Item id: nil, name: "Harry Met Sally", list_id: nil, created_at: nil, updated_at: nil> 
+> @new = @test.items.push(@harry)
+ => #<ActiveRecord::Associations::CollectionProxy [#<Item id: 70, name: "Harry Met Sally", list_id: 41, created_at: "2020-11-21 18:25:18", updated_at: "2020-11-21 18:25:18">, #<Item id: 69, name: "Titanic", list_id: 41, created_at: "2020-11-21 18:18:38", updated_at: "2020-11-21 18:18:38">]> 
+> @new
+ => #<ActiveRecord::Associations::CollectionProxy [#<Item id: 70, name: "Harry Met Sally", list_id: 41, created_at: "2020-11-21 18:25:18", updated_at: "2020-11-21 18:25:18">, #<Item id: 69, name: "Titanic", list_id: 41, created_at: "2020-11-21 18:18:38", updated_at: "2020-11-21 18:18:38">]> 
+ > @test
+ => #<List id: 41, title: "Movies To Watch", created_at: "2020-11-21 18:18:38", updated_at: "2020-11-21 18:18:38"> 
+ > @test.items
+ => #<ActiveRecord::Associations::CollectionProxy [#<Item id: 70, name: "Harry Met Sally", list_id: 41, created_at: "2020-11-21 18:25:18", updated_at: "2020-11-21 18:25:18">, #<Item id: 69, name: "Titanic", list_id: 41, created_at: "2020-11-21 18:18:38", updated_at: "2020-11-21 18:18:38">]> 
 
+
+
+# ----------------------------
 # > List.first
 # => #<List id: 17, title: "React Project Ideas", created_at: "2020-11-19 16:11:13", updated_at: "2020-11-19 16:11:13"> 
 # > List.first.items
@@ -52,7 +69,7 @@ l5.items.create(name: "Titanic")
 # => #<Item id: 38, name: "Banana", list_id: 19, created_at: "2020-11-19 16:11:13", updated_at: "2020-11-19 16:11:13"> 
 # > grocery.items[1].name
 #  => "Banana"
-
+# -------------------------------
 
 
 # iGroupPlaylist = Item.create(name: "Make an app where users can up or down vote songs on a playlist", list_id: l1.id) 
