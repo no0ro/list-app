@@ -40,15 +40,35 @@ class List {
 
     // 5. 
     postList() {
-        const form = event.target.parentElement
-        console.log(form)
+        // const form = event.target.parentElement
+         const form = event.target.parentElement
+         const item = form[1].value
+         const list = form[0].value
+        console.log(item)
+        console.log(list)
+
+        let formatInputData = {
+
+        }
+
+        let configObj = {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/json"
+            },
+            body: JSON.stringify(formatInputData) 
+        }
+
+
+        
     }
 
     bindEventListeners() {
         this.formSubmit.addEventListener("click", function() {
             event.preventDefault()
             this.postList()
-        }).bind(this)
+        }.bind(this))
     }
 
     // 3.
