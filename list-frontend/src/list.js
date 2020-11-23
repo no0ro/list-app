@@ -61,19 +61,26 @@ class List {
             .then( response => response.json())
             .then(json => (json.data))
             .then( data => {
-                console.log(typeof data)
+                console.log(typeof data) //object
                 console.log(data) // data fetch sends back is CORRECT!!
                 let newList = this.createOneListAndItemObject(data)
-               
+
+                let whereToAppend = document.getElementById("lists-index")
+                let div = document.createElement('div')
+
+                let htmlList = this.createListCardHtml(newList) 
+                div.innerHTML = htmlList
+                whereToAppend.appendChild(div)
+
                 console.log(newList)
-                    console.log("inside .then(data => { ")
+                console.log("inside .then(data => { ")
             })
-            .then(() => {
-                console.log(".then call to addListsToDom")
-                // console.log(this.list)
-                 this.addListsToDom() // x3. 
-                // data = 1 List Obj to add to dom //console.log(data)
-            })
+            // .then(() => {
+            //     console.log(".then call to addListsToDom")
+            //     // console.log(this.list)
+            //      // x3. 
+            //     // data = 1 List Obj to add to dom //console.log(data)
+            // })
                 // console.log(data[1].attributes.title) // "Faith's Wedding: MOH"
                 // console.log(data[1].attributes.items[0].name) // "Plan Bachelorette"
             .catch(console.error)
