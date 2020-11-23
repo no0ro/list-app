@@ -48,7 +48,7 @@ class List {
         this.formSubmit.addEventListener("click", function() {
             event.preventDefault()
             this.postList()
-        })
+        }).bind(this)
     }
 
     // 3.
