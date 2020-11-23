@@ -23,12 +23,7 @@ class List {
                 let arr =  this.createListObjects(data)
                 this.addListsToDom(arr)
                 console.log(arr)
-            }) // 2. 
-            // .then((arr) => {
-            //     console.log(".then call to addListsToDom")
-            //     console.log(arr)
-            //     this.addListsToDom(this.arr) // 3.
-            // })
+            }) 
             .catch(console.error)
     }
 
@@ -36,13 +31,7 @@ class List {
     // 5. 
     postList() {
         console.log("inside postList()")
-        // another way to grab input
-        //      const form = event.target.parentElement
-        //      const item = form[1].value
-        //      const list = form[0].value
-        // console.log(listTitle)
-        // console.log(itemName)
-        
+
         let formatInputData = {
             title: document.getElementById('title-input').value,
             name: document.getElementById('name-input').value
@@ -71,52 +60,17 @@ class List {
                 let htmlList = this.createListCardHtml(newList) 
                 div.innerHTML = htmlList
                 whereToAppend.appendChild(div)
+                document.getElementById("list-form").reset()
 
                 console.log(newList)
                 console.log("inside .then(data => { ")
             })
-            // .then(() => {
-            //     console.log(".then call to addListsToDom")
-            //     // console.log(this.list)
-            //      // x3. 
-            //     // data = 1 List Obj to add to dom //console.log(data)
-            // })
-                // console.log(data[1].attributes.title) // "Faith's Wedding: MOH"
-                // console.log(data[1].attributes.items[0].name) // "Plan Bachelorette"
             .catch(console.error)
                
-    // end postList()        
-    } 
+        
+    } // end postList() 
 
-    // addOneListToDom() {
-    //     // createListCardHtml(list) 
-    //     console.log(this.list)
-    //     let listsIndex = document.getElementById("lists-index")
-    //     let htmlList = createOneListCardHtml(list)
-    // }
-
-    // createOneListCardHtml(list) {
-
-    //     return `
-    //     <div class="card" style="width: 25rem; border-color: black;"">
-    //         <div class="card-body">
-    //             <h5 class="card-title">${list.title}</h5>
-    //         </div>
-    //         <ul class="list-group list-group-flush">`
-    //             + list.items.renderItem() + 
-    //         `
-    //         </ul>
-    //         <div class="card-body">
-    //             <a href="#" class="card-link">Add Item</a>
-    //             <a href="#" class="card-link">Delete Item</a>
-    //         </div>
-    //     <br>
-    //     </div>
-    //     <hr>
-    // `;
-    // }
-
-
+   
     // this.OnEvent = OnEvent.bind(this);
 
     // bindEventListeners() {
@@ -127,48 +81,42 @@ class List {
     //     // if i had a general "Lists class" this would be better bc then I wouldnt have alll my attributes/List obj, etc involved 
     // }
 
- // 2 . take data and turn it into List Objects, 
- createListObjects(data){
-    // take in fetch data, pick through hash, assign values
-    let newListObjArr = []
-    data.forEach((listObj) => {
-        let newList = new List() 
-        newList.title = listObj.attributes.title
-        newList.id = listObj.attributes.id // non string id. -- string version is listObj.id 
-        let listLength = listObj.attributes.items.length
+    // 2 . take data and turn it into List Objects, 
+    createListObjects(data){
+        // take in fetch data, pick through hash, assign values
+        let newListObjArr = []
+        data.forEach((listObj) => {
+            let newList = new List() 
+            newList.title = listObj.attributes.title
+            newList.id = listObj.attributes.id // non string id. -- string version is listObj.id 
+            let listLength = listObj.attributes.items.length
 
-            if (listLength == 1) {
-                let newItem = new Item()
-                newItem.name = listObj.attributes.items[0].name
-                newItem.id = listObj.attributes.items[0].id 
-                newItem.list_id = listObj.attributes.items[0].list_id 
-                newList.items.push(newItem)
-            } else {
-                listObj.attributes.items.map( (item) => {
+                if (listLength == 1) {
                     let newItem = new Item()
-                    newItem.name = item.name
-                    newItem.id = item.id 
-                    newItem.list_id = item.list_id 
+                    newItem.name = listObj.attributes.items[0].name
+                    newItem.id = listObj.attributes.items[0].id 
+                    newItem.list_id = listObj.attributes.items[0].list_id 
                     newList.items.push(newItem)
-                        //console.log(item)
-                        //console.log("iteratinggggg")
-                })
-            }
-            console.log(newList)
-            console.log("inside arrrr")
-            // finished making the list, so push to this.lists
-           
-        newListObjArr.push(newList)         // push to lists to array -- will return back to getLists when done
-
-    })
-    return newListObjArr
-  
-
-    // console.log(newListObjArr)
-}
+                } else {
+                    listObj.attributes.items.map( (item) => {
+                        let newItem = new Item()
+                        newItem.name = item.name
+                        newItem.id = item.id 
+                        newItem.list_id = item.list_id 
+                        newList.items.push(newItem)
+                            //console.log("iteratinggggg")
+                    })
+                }
+                console.log(newList)
+                console.log("inside arrrr")           
+            newListObjArr.push(newList)       
+        })
+        return newListObjArr
+    } // end createListObjects()
 
 
     // 3.
+    // dont call this fn for post, go straight to createListCardHTML
     addListsToDom(listArr) {
             console.log("inside addListsToDom")
             console.log(listArr) // arr of arr's rn 
@@ -176,8 +124,6 @@ class List {
         let htmlList = listArr.map((list) => list.createListCardHtml(list) + `<br>`)
 
         listsIndex.innerHTML = htmlList
-            // console.log("thisis x")
-            //console.log(x)
     }
     
     // 4.
@@ -235,11 +181,10 @@ class List {
         newList.items.push(newItem)
         return newList
         // console.log(newList)
-      
-        // Add this List to the Lists arr
-        // this.lists.push(newList)  // this is pushing to the list arr for the current DOM. not an overarching list arr
-        // console.log(this.lists)
+
     }
+
+
 // end of class
 }
 
