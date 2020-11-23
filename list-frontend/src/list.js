@@ -35,43 +35,79 @@ class List {
             .catch(console.error)
     }
 
+    addBr() {
+        return `<br`
+    }
     // 3.
     addListsToDom() {
-        console.log("inside addListsToDom")
-        console.log(this.lists) // arr of list objects
-        // for (let list of this.lists) {
+            console.log("inside addListsToDom")
+            // console.log(this.lists) // arr of list objects
+        // for (let list of this.lists) { 
+        //     let x = list.createListCardHtml()
+        //       listsIndex.innerHTML = htmlList
+        // }
         let listsIndex = document.getElementById("lists-index")
-        let x = this.lists.map((list) => list.createListCardHtml(list)).join('')
+        let htmlList = this.lists.map((list) => list.createListCardHtml(list) + `<br>`)
+        // .addBr()
+        
+        
+        // let htmlList = this.lists.map((list) => {
+        //     let xyz = []
             
-        listsIndex.innerHTML = x
-            console.log("thisis x")
-            console.log(x)
+        //     let domList = list.createListCardHtml(list)
+        //      console.log(domList)
+            
+        // })
+
+
+
+            // .join('')
+            // TO DO - add a space between lists
+            // console.log("below look!")
+            // console.log(htmlList)
+        listsIndex.innerHTML = htmlList
+            // console.log("thisis x")
+            //console.log(x)
     }
     
+   
     createListCardHtml(list) {
         console.log("inside renderListsToDom")
         let listsIndex = document.getElementById("lists-index")
-      
+ 
+        // TO DO - refactor with recursion
+        function checkItemsLength() {
+            let itemsLength = list.items.length 
+                 // console.log(itemsLength)
+            if (itemsLength == 1) {
+                 return list.items[0].renderItem()
+            } else {
+
+               return list.items.map(item => {
+                    let x = item.renderItem()
+                        // console.log(x)
+                        // console.log("above was x")
+                    return x
+                })
+            }
+        }
+
             return `
-                <div class="card" style="width: 18rem;  border-color: black;"">
+                <div class="card" style="width: 18rem; border-color: black;"">
                     <div class="card-body">
                         <h5 class="card-title">${list.title}</h5>
                     </div>
-                    <ul class="list-group list-group-flush">
-                         <li class="list-group-item">${list.items[0].name}</li>
+                    <ul class="list-group list-group-flush">`
+                        + checkItemsLength() + 
+                    `
                     </ul>
                     <div class="card-body">
                         <a href="#" class="card-link">Add Item</a>
                         <a href="#" class="card-link">Delete Item</a>
                     </div>
-                   
-                            <div> + insert render from items in refactor </div>
                 <br>
-                <div> 
                 </div>
                 <hr>
-                <hr>
-            
             `;
     }
         
