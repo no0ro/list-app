@@ -1,19 +1,14 @@
 class List {
-    constructor(title, id, created_at ) {
+    constructor(title, id) {
         this.title = title
         this.id = id
-        this.created_at = created_at
         this.items = [] 
-        this.lists = [];
-        // this.fetchAndLoadLists()
-        this.formSubmit = document.getElementById("form-submit")
-        this.bindEventListeners()
+        this.lists = []
     }
 
     fetchAndLoadLists() {
         this.getLists()
         console.log("inside fetchAndLoacd")
-      
         // this.addListsToDom(this.lists)
     }
     
@@ -27,49 +22,104 @@ class List {
             .then(json => (json.data))
             .then(data => {  
                 this.createListObjects(data)}) // 2. 
+                // what do i get back???
             .then(() => {
                 console.log(".then call to addListsToDom")
                 this.addListsToDom() // 3. 
                 // data = array of objects //console.log(data)
             })
-            
                 // console.log(data[1].attributes.title) // "Faith's Wedding: MOH"
                 // console.log(data[1].attributes.items[0].name) // "Plan Bachelorette"
             .catch(console.error)
     }
 
+    // TO DO - Refactor to be on class
     // 5. 
     postList() {
-        // const form = event.target.parentElement
-         const form = event.target.parentElement
-         const item = form[1].value
-         const list = form[0].value
-        console.log(item)
-        console.log(list)
-
+        console.log("inside postList()")
+        // another way to grab input
+        //      const form = event.target.parentElement
+        //      const item = form[1].value
+        //      const list = form[0].value
+        // console.log(listTitle)
+        // console.log(itemName)
+        
         let formatInputData = {
-
+            title: document.getElementById('title-input').value,
+            name: document.getElementById('name-input').value
         }
-
         let configObj = {
             method: "POST",
             headers: {
-              "Content-Type": "application/json",
-              "Accept": "application/json"
+            "Content-Type": "application/json",
+            "Accept": "application/json"
             },
             body: JSON.stringify(formatInputData) 
         }
 
+        console.log("before fetch")
+        fetch('http://localhost:3000/lists', configObj) 
+            .then( response => response.json())
+            .then(json => (json.data))
+            .then( data => {
+                console.log(typeof data)
+                console.log(data) // data fetch sends back is CORRECT!!
+                this.createOneListAndItemObject(data)
+                    //console.log("inside .then(data => { ")
+            })
+            .then(() => {
+                console.log(".then call to addListsToDom")
+                // console.log(this.list)
+                 this.addListsToDom() // x3. 
+                // data = 1 List Obj to add to dom //console.log(data)
+            })
+                // console.log(data[1].attributes.title) // "Faith's Wedding: MOH"
+                // console.log(data[1].attributes.items[0].name) // "Plan Bachelorette"
+            .catch(console.error)
+               
+    // end postList()        
+    } 
 
-        
-    }
+    // addOneListToDom() {
+    //     // createListCardHtml(list) 
+    //     console.log(this.list)
+    //     let listsIndex = document.getElementById("lists-index")
+    //     let htmlList = createOneListCardHtml(list)
+    // }
 
-    bindEventListeners() {
-        this.formSubmit.addEventListener("click", function() {
-            event.preventDefault()
-            this.postList()
-        }.bind(this))
-    }
+    // createOneListCardHtml(list) {
+
+    //     return `
+    //     <div class="card" style="width: 25rem; border-color: black;"">
+    //         <div class="card-body">
+    //             <h5 class="card-title">${list.title}</h5>
+    //         </div>
+    //         <ul class="list-group list-group-flush">`
+    //             + list.items.renderItem() + 
+    //         `
+    //         </ul>
+    //         <div class="card-body">
+    //             <a href="#" class="card-link">Add Item</a>
+    //             <a href="#" class="card-link">Delete Item</a>
+    //         </div>
+    //     <br>
+    //     </div>
+    //     <hr>
+    // `;
+    // }
+
+
+    // this.OnEvent = OnEvent.bind(this);
+
+    // bindEventListeners() {
+    //     this.formSubmit.addEventListener("click", function() {
+    //         event.preventDefault()
+    //         this.postList()
+    //     }.bind(this))
+    //     // if i had a general "Lists class" this would be better bc then I wouldnt have alll my attributes/List obj, etc involved 
+    // }
+
+
 
     // 3.
     addListsToDom() {
@@ -123,11 +173,35 @@ class List {
     // 2 . take data and turn it into List Objects, 
     createListObjects(data){
         // take in fetch data, pick through hash, assign values
+        // if (typeof data == "object") {
+        //     console.log(data)
+        //     console.log("obj here!")
+        //     let newList = new List() 
+        //     newList.title = data.attributes.title
+        //     newList.id = data.attributes.id // non string id. -- string version is listObj.id 
+        //     newList.created_at = data.attributes.created_at
+
+        //     let listLength = listObj.attributes.items.length
+
+        //     if (listLength == 1) {
+
+        //         let newItem = new Item()
+        //         newItem.name = listObj.attributes.items[0].name
+        //         newItem.id = listObj.attributes.items[0].id 
+        //         newItem.list_id = listObj.attributes.items[0].list_id 
+        //         newItem.created_at = listObj.attributes.items[0].created_at
+        //         newList.items.push(newItem)
+        //     }
+        //     console.log(newList)
+        //     console.log("inside obj")
+
+        // } else {
+        //     console.log("its an array!")
+        // }
          data.forEach((listObj) => {
             let newList = new List() 
             newList.title = listObj.attributes.title
             newList.id = listObj.attributes.id // non string id. -- string version is listObj.id 
-            newList.created_at = listObj.attributes.created_at
             let listLength = listObj.attributes.items.length
 
                 if (listLength == 1) {
@@ -136,7 +210,6 @@ class List {
                     newItem.name = listObj.attributes.items[0].name
                     newItem.id = listObj.attributes.items[0].id 
                     newItem.list_id = listObj.attributes.items[0].list_id 
-                    newItem.created_at = listObj.attributes.items[0].created_at
                     newList.items.push(newItem)
                 } else {
                     listObj.attributes.items.map( (item) => {
@@ -145,19 +218,41 @@ class List {
                         newItem.name = item.name
                         newItem.id = item.id 
                         newItem.list_id = item.list_id 
-                        newItem.created_at = item.created_at
                         newList.items.push(newItem)
                             //console.log(item)
                             //console.log("iteratinggggg")
                     })
                 }
-                //console.log(newList)
+                console.log(newList)
+                console.log("inside arrrr")
                 // finished making the list, so push to this.lists
-                this.lists.push(newList)         // push to lists to array -- will return back to getLists when done
+        this.lists.push(newList)         // push to lists to array -- will return back to getLists when done
         })
+    }
+
+    // same as createListObjects - but for when sent from POST - aka will have only one obj. no need to iterate
+    createOneListAndItemObject(data){
+        // instanciate List, add attributes
+        //console.log(data)
+        let newList = new List() 
+        newList.title = data.attributes.title
+        newList.id = data.attributes.id // non string id. -- string version is listObj.id 
+
+        // Instanciate Item, add attributes
+        let newItem = new Item()
+        newItem.name = data.attributes.items[0].name
+        newItem.id = data.attributes.items[0].id 
+        newItem.list_id = data.attributes.items[0].list_id 
+        newList.items.push(newItem)
+        console.log(newList)
+      
+        // Add this List to the Lists arr
+        this.lists.push(newList)  // this is pushing to the list arr for the current DOM. not an overarching list arr
+        // console.log(this.lists)
     }
 // end of class
 }
+
 
 
 
@@ -179,3 +274,5 @@ class List {
 //     })
 //     return items 
 // }
+
+
