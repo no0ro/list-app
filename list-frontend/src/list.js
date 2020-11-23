@@ -5,16 +5,21 @@ class List {
         this.created_at = created_at
         this.items = [] 
         this.lists = [];
+        // this.fetchAndLoadLists()
+        this.formSubmit = document.getElementById("form-submit")
+        this.bindEventListeners()
+
+    
     }
 
     fetchAndLoadLists() {
         this.getLists()
         console.log("inside fetchAndLoacd")
       
-        this.addListsToDom(this.lists)
-        console.log("her!!e")
+        // this.addListsToDom(this.lists)
     }
     
+    // 1.
     getLists() {
         // fetch
         console.log("inside getLists()")
@@ -23,10 +28,10 @@ class List {
             .then(response => response.json())
             .then(json => (json.data))
             .then(data => {  
-                this.createListObjects(data)})
+                this.createListObjects(data)}) // 2. 
             .then(() => {
-                console.log("sup")
-                this.addListsToDom()
+                console.log(".then call to addListsToDom")
+                this.addListsToDom() // 3. 
                 // data = array of objects //console.log(data)
             })
             
@@ -35,46 +40,36 @@ class List {
             .catch(console.error)
     }
 
-    addBr() {
-        return `<br`
+    // 5. 
+    postLists() {
+
+        const form = event.target.parentElement
+        console.log(form)
     }
+
+    bindEventListeners() {
+        this.formSubmit.addEventListener("click", function() {
+            event.preventDefault()
+            this.postLists()
+        })
+    }
+
+
+ 
     // 3.
     addListsToDom() {
             console.log("inside addListsToDom")
-            // console.log(this.lists) // arr of list objects
-        // for (let list of this.lists) { 
-        //     let x = list.createListCardHtml()
-        //       listsIndex.innerHTML = htmlList
-        // }
         let listsIndex = document.getElementById("lists-index")
         let htmlList = this.lists.map((list) => list.createListCardHtml(list) + `<br>`)
-        // .addBr()
-        
-        
-        // let htmlList = this.lists.map((list) => {
-        //     let xyz = []
-            
-        //     let domList = list.createListCardHtml(list)
-        //      console.log(domList)
-            
-        // })
 
-
-
-            // .join('')
-            // TO DO - add a space between lists
-            // console.log("below look!")
-            // console.log(htmlList)
         listsIndex.innerHTML = htmlList
             // console.log("thisis x")
             //console.log(x)
     }
     
-   
+    // 4.
     createListCardHtml(list) {
-        console.log("inside renderListsToDom")
-        let listsIndex = document.getElementById("lists-index")
- 
+        console.log("inside renderListsToDom") 
         // TO DO - refactor with recursion
         function checkItemsLength() {
             let itemsLength = list.items.length 
@@ -82,18 +77,16 @@ class List {
             if (itemsLength == 1) {
                  return list.items[0].renderItem()
             } else {
-
                return list.items.map(item => {
-                    let x = item.renderItem()
+                    let newItem = item.renderItem()
                         // console.log(x)
-                        // console.log("above was x")
-                    return x
+                    return newItem
                 })
             }
         }
 
             return `
-                <div class="card" style="width: 18rem; border-color: black;"">
+                <div class="card" style="width: 25rem; border-color: black;"">
                     <div class="card-body">
                         <h5 class="card-title">${list.title}</h5>
                     </div>
@@ -111,14 +104,7 @@ class List {
             `;
     }
         
-    fetchAndRenderListsToDom() {
-    }
 
-    
-    createNewItem(name){
-        const newItem = new Item()
-    }
-    
     // 2 . take data and turn it into List Objects, 
     createListObjects(data){
         // take in fetch data, pick through hash, assign values
@@ -146,8 +132,8 @@ class List {
                         newItem.list_id = item.list_id 
                         newItem.created_at = item.created_at
                         newList.items.push(newItem)
-                        //console.log(item)
-                        console.log("iteratinggggg")
+                            //console.log(item)
+                            //console.log("iteratinggggg")
                     })
                 }
                 //console.log(newList)
@@ -160,6 +146,10 @@ class List {
 
 // end of class
 }
+
+
+
+
 
 
 
