@@ -8,8 +8,6 @@ class List {
         // this.fetchAndLoadLists()
         this.formSubmit = document.getElementById("form-submit")
         this.bindEventListeners()
-
-    
     }
 
     fetchAndLoadLists() {
@@ -41,8 +39,7 @@ class List {
     }
 
     // 5. 
-    postLists() {
-
+    postList() {
         const form = event.target.parentElement
         console.log(form)
     }
@@ -50,12 +47,10 @@ class List {
     bindEventListeners() {
         this.formSubmit.addEventListener("click", function() {
             event.preventDefault()
-            this.postLists()
+            this.postList()
         })
     }
 
-
- 
     // 3.
     addListsToDom() {
             console.log("inside addListsToDom")
@@ -141,15 +136,8 @@ class List {
                 this.lists.push(newList)         // push to lists to array -- will return back to getLists when done
         })
     }
-    
-
-
 // end of class
 }
-
-
-
-
 
 
 
