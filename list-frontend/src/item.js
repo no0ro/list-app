@@ -1,10 +1,9 @@
 class Item {
-    constructor(name, id, list_id, created_at) {
+    constructor(name, id, list_id) {
         // this.item = new Item(name)
         this.name = name
         this.id = id
         this.list_id = list_id
-        this.created_at = created_at
     }
 
     renderItem() {
