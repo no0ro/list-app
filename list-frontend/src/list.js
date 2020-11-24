@@ -131,7 +131,7 @@ class List {
                 `
                 </ul>
                 <div class="card-body">
-                    <button data-list-id="[${list.id}]" class="deleteButton btn btn-info" onclick="dl()" > Delete List </button>
+                    <button data-list-id="[${list.id}]" class="deleteButton btn btn-info" onclick="deleteList()" > Delete List </button>
                     <br>
                     <form>
                         <div class="form-group">
@@ -182,7 +182,7 @@ class List {
 
 } // END -- class 
 
-function dl() {
+function deleteList() {
     console.log("inside deleteList()")
     let listId = event.target.getAttribute(`data-list-id`)
     let slicedListId = listId.slice(1, -1)
