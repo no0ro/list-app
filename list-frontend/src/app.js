@@ -21,11 +21,9 @@ class App{
 
     bindFormSubmit() {
         // let x = document.getElementById("form-submit")
-
         this.formSubmit.addEventListener("click", function(e) {
             e.preventDefault()
             console.log(e.target)
-            // alert('I was clicked')
             this.list.postList()
         }.bind(this))
 
