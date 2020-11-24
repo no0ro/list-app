@@ -217,4 +217,17 @@ class List {
 
 function dl() {
     console.log("inside deleteList()")
+    let listId = event.target.getAttribute(`data-list-id`)
+    let slicedListId = listId.slice(1, -1)
+    console.log(listId)
+
+    fetch(`http://localhost:3000/lists/${slicedListId}`, {
+        method: 'DELETE'})
+        .then(response => response.json())
+        .then(json => {
+            // grag list with jQuery
+            console.log(json)
+  
+           
+        })
 }
