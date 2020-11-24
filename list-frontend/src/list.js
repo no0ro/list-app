@@ -3,24 +3,13 @@ class List {
         this.title = title
         this.id = id
         this.items = [] 
-        this.lists = []
-        // this.addItemBtn = document.getElementById("#add-item-button")
-        // this.deleteBtn = 
-             //dont want to bind for EVERY instance. just need to add listener for page document as a whole
-        //  this.bindEventListeners()   
     }
 
     fetchAndLoadLists() {
         this.getLists()
         console.log("inside fetchAndLoacd")
-        
-        // this.addClickListeners()
-        // console.log("inside fetchAndLoacd - after addClickListeners()")
-        // this.addListsToDom(this.lists)
     }
     
-   
-
     // 1.
     getLists() {
         console.log("inside getLists()")
@@ -31,27 +20,16 @@ class List {
             .then(data => {  
                 let arr =  this.createListObjects(data)
                 this.addListsToDom(arr)
-                console.log(arr)
-                console.log("get list arr")
             }) 
             .catch(console.error)
     }
 
-
-// TO DO - Refactor to be on class
     // 5.
     postList() {
-            console.log("inside postList()")
-            // let formatInputData = {
-            //     title: document.getElementById('title-input').value,
-            //     name: document.getElementById('name-input').value
-            // }
+            // console.log("inside postList()")
             const form = event.target.parentElement
             const items = form[1].value.split(', ') // turns into Arr of strings ["hello", "there"]
             const listTitle = form[0].value
-            
-            // console.log(items)
-            // console.log(listTitle)
 
             let configObj = {
                 method: "POST",
@@ -65,7 +43,7 @@ class List {
                 }) 
             }
 
-            console.log("before fetch")
+            // console.log("before fetch")
             fetch('http://localhost:3000/lists', configObj) 
                 .then( response => response.json())
                 .then(json => (json.data))
@@ -79,18 +57,12 @@ class List {
                     div.innerHTML = htmlList
                     whereToAppend.appendChild(div)
                     document.getElementById("list-form").reset()
-
-                    console.log(newList)
-                    console.log("inside .then(data => { ")
+                    // console.log(newList)
                 })
                 .catch(console.error)
-    } // end postList() 
+    } // END --- postList() 
 
-    // console.log(data)
-                    // console.log(typeof data) //object
-                    // console.log(data) // data fetch sends back is CORRECT!!
-
-    // 2 . take data and turn it into List Objects, 
+    // 2 . take data and turn it into List Objects
     createListObjects(data){
         // take in fetch data, pick through hash, assign values
         let newListObjArr = []
@@ -116,8 +88,8 @@ class List {
                             //console.log("iteratinggggg")
                     })
                 }
-                console.log(newList)
-                console.log("inside arrrr")           
+                // console.log(newList)
+                // console.log("inside arrrr")           
             newListObjArr.push(newList)       
         })
         return newListObjArr
@@ -137,17 +109,13 @@ class List {
     
     // 4.
     createListCardHtml(list) {
-        console.log("inside renderListsToDom") 
-        // TO DO - refactor with recursion
         function checkItemsLength() {
             let itemsLength = list.items.length 
-                // console.log(itemsLength)
             if (itemsLength == 1) {
                 return list.items[0].renderItem()
             } else {
             return list.items.map(item => {
                     let newItem = item.renderItem()
-                        // console.log(x)
                     return newItem
                 })
             }
@@ -178,8 +146,8 @@ class List {
         `;
     }
     
+     // instanciate List, add attributes
     createOneListAndItemObject(data) {
-        // instanciate List, add attributes
         //console.log(data)
         let newList = new List() 
         newList.title = data.attributes.title
@@ -206,14 +174,13 @@ class List {
             })
            
         }
-        console.log(newList)
-        console.log("this is new list ^^")
+        // console.log(newList)
+        // console.log("this is new list ^^")
         return newList
+    } // END -- createOneListAndItemObject(data)
 
-    }
 
-// end of class
-}
+} // END -- class 
 
 function dl() {
     console.log("inside deleteList()")
