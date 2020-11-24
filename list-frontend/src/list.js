@@ -28,7 +28,8 @@ class List {
     postList() {
             // console.log("inside postList()")
             const form = event.target.parentElement
-            const items = form[1].value.split(', ') // turns into Arr of strings ["hello", "there"]
+            const items = form[1].value.split(', ') // COMMA -  turns into Arr of strings ["hello", "there"]
+            console.log(items)
             const listTitle = form[0].value
 
             let configObj = {
@@ -38,7 +39,7 @@ class List {
                 "Accept": "application/json"
                 },
                 body: JSON.stringify({
-                    title: listTitle,
+                    title: listTitle , // COMMA 
                     name: items
                 }) 
             }
@@ -48,6 +49,7 @@ class List {
                 .then( response => response.json())
                 .then(json => (json.data))
                 .then( data => {
+                    console.log(data)
                     let newList = this.createOneListAndItemObject(data) // 231
 
                     let whereToAppend = document.getElementById("lists-index")
@@ -122,28 +124,18 @@ class List {
         }
 
         return `
-            <div class="card" data-list-id="[${list.id}]" style="width: 25rem; border-color: black;"">
-                <div class="card-body">
+            <div class="card" data-list-id="[${list.id}]" style="width: 30rem; border-color: black;"">
+                <div class="card-body text-center">
                     <h5 class="card-title">${list.title}</h5>
                 </div>
-                <ul class="list-group list-group-flush">`
-                    + checkItemsLength() + 
-                `
+                <ul class="list-group list-group-flush">
+                    ${checkItemsLength()} 
                 </ul>
-                <div class="card-body">
+                <div class="card-body text-center">
                     <button data-list-id="[${list.id}]" class="deleteButton btn btn-info" onclick="deleteList()" > Delete List </button>
-                    <br>
-                    <form>
-                        <div class="form-group">
-                            <input class="form-control form-control-sm" type="text" placeholder="add an item..."><br>
-                            <input type="submit" name="submit"  value="Add an Item" id="add-item-submit"  class="add-item-button btn btn-info"/>
-                        </div>
-                    </form>
                 </div>
-            <br>
             </div>
-            <hr>
-        `;
+        `
     }
     
      // instanciate List, add attributes
