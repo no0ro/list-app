@@ -227,7 +227,13 @@ function dl() {
         .then(json => {
             // grag list with jQuery
             console.log(json)
+        // use ListId to grav dom display list card and delete it from view, items array is alreay deleted from db
+                // console.log(list.id) // lst.id doesnt exist - obvi bc this doesnt exist anymore
+                console.log(listId) 
+                console.log(slicedListId)
+                let selectedList = document.querySelector(`.card[data-list-id="${listId}"]`)    
+                selectedList.remove()
+                console.log(selectedList)
   
-           
         })
 }
