@@ -154,7 +154,7 @@ class List {
         }
 
         return `
-            <div class="card" style="width: 25rem; border-color: black;"">
+            <div class="card" data-list-id="[${list.id}]" style="width: 25rem; border-color: black;"">
                 <div class="card-body">
                     <h5 class="card-title">${list.title}</h5>
                 </div>
@@ -163,7 +163,8 @@ class List {
                 `
                 </ul>
                 <div class="card-body">
-
+                    <button data-list-id="[${list.id}]" class="deleteButton btn btn-info" onclick="dl()" > Delete List </button>
+                    <br>
                     <form>
                         <div class="form-group">
                             <input class="form-control form-control-sm" type="text" placeholder="add an item..."><br>
@@ -212,4 +213,8 @@ class List {
     }
 
 // end of class
+}
+
+function dl() {
+    console.log("inside deleteList()")
 }
