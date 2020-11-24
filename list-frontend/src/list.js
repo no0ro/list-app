@@ -124,7 +124,7 @@ class List {
         }
 
         return `
-            <div class="card" data-list-id="[${list.id}]" style="width: 30rem; border-color: black;"">
+            <div class="card" data-list-id="[${list.id}]"  border-color: black;"">
                 <div class="card-body text-center">
                     <h5 class="card-title">${list.title}</h5>
                 </div>
@@ -132,7 +132,7 @@ class List {
                     ${checkItemsLength()} 
                 </ul>
                 <div class="card-body text-center">
-                    <button data-list-id="[${list.id}]" class="deleteButton btn btn-info" onclick="deleteList()" > Delete List </button>
+                    <button data-list-id="[${list.id}]" class="deleteButton btn btn-dark btn-sm" onclick="deleteList()" > Delete List </button>
                 </div>
             </div>
         `

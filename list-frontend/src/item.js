@@ -6,8 +6,8 @@ class Item {
     }
 
     renderItem() {
-        return `
-        <li class="list-group-item"> - ${this.name}</li>
-        `;    
+        return `<li class="list-group-item"> <span>&#10162;</span> ${this.name}</li>
+        
+        `
     }
 }
