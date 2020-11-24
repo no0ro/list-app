@@ -35,6 +35,13 @@ class ListsController < ApplicationController
       render json: ListSerializer.new(list)
     end 
 
+    def destroy  
+      list = List.find_by(id: params[:id])
+      list.destroy 
+      render json: ListSerializer.new(list)
+
+    end 
+
 
     private
     def list_params
