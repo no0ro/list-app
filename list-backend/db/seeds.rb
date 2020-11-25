@@ -12,33 +12,61 @@
 
 # > l3 = List.create(title: "Grocery List")
 # #<List id: 6, title: "Grocery List", created_at: "2020-11-19 15:29:01", updated_at: "2020-11-19 15:29:01"> 
-l1 = List.create(title: "React Project Ideas")
-l2 = List.create(title: "Faith's Wedding: Maid of Honor Duties")
-l3 = List.create(title: "Grocery List")
-l4 = List.create(title: "Faith's Wedding: Bachelorette Party Planning")
-l5 = List.create(title: "Movies To Watch")
+l6 = List.create(title: "JS Project Checklist")
+l6.items.create(name: "Write blog")
+l6.items.create(name: "Record 2 min vid walk through")
+l6.items.create(name: "Submit project planning form")
+l6.items.create(name: "Make diagram of associations flow")
+l6.items.create(name: "Submit Github")
+l6.items.create(name: "Schedule project review")
+
+l7 = List.create(title: "Faith's Wedding: Maid of Honor Duties")
+l7.items.create(name: "Plan Bachelorette")
+l7.items.create(name: "Host Bridal Shower")
+l7.items.create(name: "Write Wedding Speech")
 
 
-# > i1 = Item.create(name: "pizza", list_id: l3.id)
-# => Item(id: integer, name: string, list_id: integer, created_at: datetime, updated_at: datetime) 
-# i1 = Item.create(name: "Pizza", list_id: l3.id)   # => #<Item id: 1, name: "pizza", list_id: 6, created_at: "2020-11-19 15:30:52", updated_at: "2020-11-19 15:30:52"> 
-l1.items.create(name: "Make an app where users can up or down vote songs on a playlist")
-l1.items.create(name: "App where you can input packaged food ingredients and it will show food allergies ")
 
-l2.items.create(name: "Plan Bachelorette")
-l2.items.create(name: "Speech")
 
-l3.items.create(name: "Pizza")
-l3.items.create(name: "Banana")
-l3.items.create(name: "Ice cream")
-l3.items.create(name: "Kombucha")
-l3.items.create(name: "Avocado")
 
-l4.items.create(name: " Confirm Invitees")
-l4.items.create(name: " Decide Location, Time")
-l4.items.create(name: " Send out Invites")
 
-l5.items.create(name: "Titanic")
+
+# ---------------OG Seed------------------------------------------------------------
+# l1 = List.create(title: "React Project Ideas")
+# l2 = List.create(title: "Faith's Wedding: Maid of Honor Duties")
+# l3 = List.create(title: "Grocery List")
+# l4 = List.create(title: "Faith's Wedding: Bachelorette Party Planning")
+# l5 = List.create(title: "Movies To Watch")
+
+
+# # > i1 = Item.create(name: "pizza", list_id: l3.id)
+# # => Item(id: integer, name: string, list_id: integer, created_at: datetime, updated_at: datetime) 
+# # i1 = Item.create(name: "Pizza", list_id: l3.id)   # => #<Item id: 1, name: "pizza", list_id: 6, created_at: "2020-11-19 15:30:52", updated_at: "2020-11-19 15:30:52"> 
+# l1.items.create(name: "Make an app where users can up or down vote songs on a playlist")
+# l1.items.create(name: "App where you can input packaged food ingredients and it will show food allergies ")
+
+# l2.items.create(name: "Plan Bachelorette")
+# l2.items.create(name: "Speech")
+
+# l3.items.create(name: "Pizza")
+# l3.items.create(name: "Banana")
+# l3.items.create(name: "Ice cream")
+# l3.items.create(name: "Kombucha")
+# l3.items.create(name: "Avocado")
+
+# l4.items.create(name: " Confirm Invitees")
+# l4.items.create(name: " Decide Location, Time")
+# l4.items.create(name: " Send out Invites")
+
+# l5.items.create(name: "Titanic")
+
+# ----------------------------------------------------------------------------------
+
+
+
+
+
+
 
 
 # > @test = List.last
