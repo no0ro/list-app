@@ -16,6 +16,8 @@ class App{
             e.preventDefault()
             console.log(e.target)
             this.list.postList()
-        }.bind(this))
+        }.bind(this)) 
+        // pass in the context you want the fn to be run in AKA this 
+        // unline .call and .apply, it doesnt immeditely execute the fn
     }
 }

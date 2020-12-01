@@ -3,10 +3,15 @@ class List {
         this.title = title
         this.id = id
         this.items = [] 
-
-    
     }
 
+    // 1. 
+    fetchAndLoadLists() {
+        this.getLists()
+        console.log("inside fetchAndLoacd")
+
+    }
+    
     static deleteList() {
         console.log("inside deleteList()")
         let listId = event.target.getAttribute(`data-list-id`)
@@ -17,7 +22,7 @@ class List {
         method: 'DELETE'})
         .then(response => response.json())
         .then(json => {
-            // grag list with jQuery
+           
             console.log(json)
         // use ListId to grav dom display list card and delete it from view, items array is alreay deleted from db
                 // console.log(list.id) // lst.id doesnt exist - obvi bc this doesnt exist anymore
@@ -30,18 +35,11 @@ class List {
         })
     } // static is class level, applies to alllll instances. listener work around w/ id
 
-    fetchAndLoadLists() {
-        this.getLists()
-        console.log("inside fetchAndLoacd")
-
-    }
-    
-
-    // 1.
+    // 2. 
     getLists() {
         console.log("inside getLists()")
         return fetch("http://localhost:3000/lists")
-            // .then puts our responcefn inside the hidden onFulfilled:[] Array Property, which gets triggered when we get a value back  
+            // .then puts our responce obj inside the hidden onFulfilled:[] Array Property, which gets triggered when we get a value back  
             .then(response => response.json())
             .then(json => (json.data))
             .then(data => {  
@@ -66,8 +64,8 @@ class List {
                 "Accept": "application/json"
                 },
                 body: JSON.stringify({
-                    title: listTitle , // COMMA 
-                    name: items
+                    "title": listTitle, // COMMA 
+                    "name": items
                 }) 
             }
 
@@ -154,7 +152,6 @@ class List {
             }
         }
 
-        
         return `
             <div class="card" data-list-id="[${list.id}]"  border-color: black;"">
                 <div class="card-body text-center">

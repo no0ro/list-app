@@ -16,7 +16,6 @@ class ListsController < ApplicationController
         # => "Test4"
      
       # Review.find_by(id: params[:id]) 
-      # [!!] read up on find_or_create_by vs find_by
       items = params[:name].map { |itemName| Item.create(name: itemName)}
       # byebug
       # item = Item.find_or_create_by(name: params[:name]) 

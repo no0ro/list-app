@@ -1,4 +1,6 @@
 class ItemsController < ApplicationController
+
+# FOR FUTURE ADD IN's!
   def index
       items = Item.all
       options = {
