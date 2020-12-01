@@ -3,13 +3,40 @@ class List {
         this.title = title
         this.id = id
         this.items = [] 
+
+    
     }
+
+    static deleteList() {
+        console.log("inside deleteList()")
+        let listId = event.target.getAttribute(`data-list-id`)
+        let slicedListId = listId.slice(1, -1)
+        console.log(listId)
+
+        fetch(`http://localhost:3000/lists/${slicedListId}`, {
+        method: 'DELETE'})
+        .then(response => response.json())
+        .then(json => {
+            // grag list with jQuery
+            console.log(json)
+        // use ListId to grav dom display list card and delete it from view, items array is alreay deleted from db
+                // console.log(list.id) // lst.id doesnt exist - obvi bc this doesnt exist anymore
+                console.log(listId) 
+                console.log(slicedListId)
+                let selectedList = document.querySelector(`.card[data-list-id="${listId}"]`)    
+                selectedList.remove()
+                console.log(selectedList)
+  
+        })
+    } // static is class level, applies to alllll instances. listener work around w/ id
 
     fetchAndLoadLists() {
         this.getLists()
         console.log("inside fetchAndLoacd")
+
     }
     
+
     // 1.
     getLists() {
         console.log("inside getLists()")
@@ -50,11 +77,13 @@ class List {
                 .then(json => (json.data))
                 .then( data => {
                     console.log(data)
+                    // create new List obj in JS 
                     let newList = this.createOneListAndItemObject(data) // 231
 
                     let whereToAppend = document.getElementById("lists-index")
                     let div = document.createElement('div')
 
+                    // create new List card in HTML
                     let htmlList = this.createListCardHtml(newList) 
                     div.innerHTML = htmlList
                     whereToAppend.appendChild(div)
@@ -105,6 +134,7 @@ class List {
             console.log(listArr) // arr of arr's rn 
         let listsIndex = document.getElementById("lists-index")
         let htmlList = listArr.map((list) => list.createListCardHtml(list) + `<br>`)
+        // let htmlList = listArr.map((list) => list.testCreateListCard(list) + `<br>`)
 
         listsIndex.innerHTML = htmlList
     }
@@ -114,6 +144,7 @@ class List {
         function checkItemsLength() {
             let itemsLength = list.items.length 
             if (itemsLength == 1) {
+                console.log(list.items[0])
                 return list.items[0].renderItem()
             } else {
             return list.items.map(item => {
@@ -123,20 +154,23 @@ class List {
             }
         }
 
+        
         return `
             <div class="card" data-list-id="[${list.id}]"  border-color: black;"">
                 <div class="card-body text-center">
                     <h5 class="card-title">${list.title}</h5>
                 </div>
-                <ul class="list-group list-group-flush">
+                <ul class="list-group list-group-flush" id="ul-id">
                     ${checkItemsLength()} 
                 </ul>
                 <div class="card-body text-center">
-                    <button data-list-id="[${list.id}]" class="deleteButton btn btn-dark btn-sm" onclick="deleteList()" > Delete List </button>
+                    <button data-list-id="[${list.id}]" class="deleteButton btn btn-dark btn-sm" onclick="List.deleteList()" > Delete List </button>
                 </div>
             </div>
         `
     }
+
+
     
      // instanciate List, add attributes
     createOneListAndItemObject(data) {
@@ -174,25 +208,4 @@ class List {
 
 } // END -- class 
 
-function deleteList() {
-    console.log("inside deleteList()")
-    let listId = event.target.getAttribute(`data-list-id`)
-    let slicedListId = listId.slice(1, -1)
-    console.log(listId)
 
-    fetch(`http://localhost:3000/lists/${slicedListId}`, {
-        method: 'DELETE'})
-        .then(response => response.json())
-        .then(json => {
-            // grag list with jQuery
-            console.log(json)
-        // use ListId to grav dom display list card and delete it from view, items array is alreay deleted from db
-                // console.log(list.id) // lst.id doesnt exist - obvi bc this doesnt exist anymore
-                console.log(listId) 
-                console.log(slicedListId)
-                let selectedList = document.querySelector(`.card[data-list-id="${listId}"]`)    
-                selectedList.remove()
-                console.log(selectedList)
-  
-        })
-}
