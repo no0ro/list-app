@@ -11,31 +11,8 @@ class List {
         console.log("inside fetchAndLoacd")
 
     }
-    
-    static deleteList() {
-        console.log("inside deleteList()")
-        let listId = event.target.getAttribute(`data-list-id`)
-        let slicedListId = listId.slice(1, -1)
-        console.log(listId)
 
-        fetch(`http://localhost:3000/lists/${slicedListId}`, {
-        method: 'DELETE'})
-        .then(response => response.json())
-        .then(json => {
-           
-            console.log(json)
-        // use ListId to grav dom display list card and delete it from view, items array is alreay deleted from db
-                // console.log(list.id) // lst.id doesnt exist - obvi bc this doesnt exist anymore
-                console.log(listId) 
-                console.log(slicedListId)
-                let selectedList = document.querySelector(`.card[data-list-id="${listId}"]`)    
-                selectedList.remove()
-                console.log(selectedList)
-  
-        })
-    } // static is class level, applies to alllll instances. listener work around w/ id
-
-    // 2. 
+    // 2. --- fetch ALL lists from db
     getLists() {
         console.log("inside getLists()")
         return fetch("http://localhost:3000/lists")
@@ -43,7 +20,9 @@ class List {
             .then(response => response.json())
             .then(json => (json.data))
             .then(data => {  
+                // 3. --- make js obj with data
                 let arr =  this.createListObjects(data)
+                // 4. Add HTML Lists to DOM
                 this.addListsToDom(arr)
             }) 
             .catch(console.error)
@@ -91,7 +70,32 @@ class List {
                 .catch(console.error)
     } // END --- postList() 
 
-    // 2 . take data and turn it into List Objects
+        
+    static deleteList() {
+        console.log("inside deleteList()")
+        let listId = event.target.getAttribute(`data-list-id`)
+        let slicedListId = listId.slice(1, -1)
+        console.log(listId)
+
+        fetch(`http://localhost:3000/lists/${slicedListId}`, {
+        method: 'DELETE'})
+        .then(response => response.json())
+        .then(json => {
+            // grag list with jQuery
+            console.log(json)
+        // use ListId to grav dom display list card and delete it from view, items array is alreay deleted from db
+                // console.log(list.id) // lst.id doesnt exist - obvi bc this doesnt exist anymore
+                console.log(listId) 
+                console.log(slicedListId)
+                let selectedList = document.querySelector(`.card[data-list-id="${listId}"]`)    
+                selectedList.remove()
+                console.log(selectedList)
+  
+        })
+    } // static is class level, applies to alllll instances. listener work around w/ id
+
+
+    // 3 --- take data and turn it into List Objects
     createListObjects(data){
         // take in fetch data, pick through hash, assign values
         let newListObjArr = []
@@ -125,20 +129,22 @@ class List {
     } // end createListObjects()
 
 
-    // 3.
+    // 4. 
     // dont call this fn for post, go straight to createListCardHTML
     addListsToDom(listArr) {
             console.log("inside addListsToDom")
             console.log(listArr) // arr of arr's rn 
         let listsIndex = document.getElementById("lists-index")
+         // 5. --- MAKE HTML CARDS
         let htmlList = listArr.map((list) => list.createListCardHtml(list) + `<br>`)
-        // let htmlList = listArr.map((list) => list.testCreateListCard(list) + `<br>`)
 
         listsIndex.innerHTML = htmlList
     }
     
-    // 4.
+    // 5.  --- MAKE/RENDER HTML CARDS
     createListCardHtml(list) {
+        // 6. --- Add in 1 Item or Iterate items array 
+        // 7. --- ADD ITEMS 
         function checkItemsLength() {
             let itemsLength = list.items.length 
             if (itemsLength == 1) {

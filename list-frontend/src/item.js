@@ -5,6 +5,7 @@ class Item {
         this.list_id = list_id
     }
 
+    // 7. --- ADD ITEMS  
     renderItem() {
 
         return `<li class="list-group-item"> <span>&#10162;</span> ${this.name}</li>
