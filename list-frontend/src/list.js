@@ -23,12 +23,13 @@ class List {
                 // 3. --- make js obj with data
                 let arr =  this.createListObjects(data)
                 // 4. Add HTML Lists to DOM
-                this.addListsToDom(arr)
+               let x =  this.addListsToDom(arr)
+            //    console.log(x)
             }) 
             .catch(console.error)
     }
 
-    // 5.
+    // 9.
     postList() {
             // console.log("inside postList()")
             const form = event.target.parentElement
@@ -48,18 +49,21 @@ class List {
                 }) 
             }
 
+            // 10.
             // console.log("before fetch")
             fetch('http://localhost:3000/lists', configObj) 
                 .then( response => response.json())
                 .then(json => (json.data))
                 .then( data => {
-                    console.log(data)
+                    // console.log(data)
                     // create new List obj in JS 
+                    // 11.
                     let newList = this.createOneListAndItemObject(data) // 231
 
                     let whereToAppend = document.getElementById("lists-index")
                     let div = document.createElement('div')
-
+                    
+                    // 12
                     // create new List card in HTML
                     let htmlList = this.createListCardHtml(newList) 
                     div.innerHTML = htmlList
@@ -70,26 +74,22 @@ class List {
                 .catch(console.error)
     } // END --- postList() 
 
-        
+        // 13
     static deleteList() {
         console.log("inside deleteList()")
         let listId = event.target.getAttribute(`data-list-id`)
         let slicedListId = listId.slice(1, -1)
-        console.log(listId)
 
         fetch(`http://localhost:3000/lists/${slicedListId}`, {
         method: 'DELETE'})
         .then(response => response.json())
         .then(json => {
             // grag list with jQuery
-            console.log(json)
+           // console.log(json)
         // use ListId to grav dom display list card and delete it from view, items array is alreay deleted from db
                 // console.log(list.id) // lst.id doesnt exist - obvi bc this doesnt exist anymore
-                console.log(listId) 
-                console.log(slicedListId)
                 let selectedList = document.querySelector(`.card[data-list-id="${listId}"]`)    
                 selectedList.remove()
-                console.log(selectedList)
   
         })
     } // static is class level, applies to alllll instances. listener work around w/ id
@@ -132,16 +132,20 @@ class List {
     // 4. 
     // dont call this fn for post, go straight to createListCardHTML
     addListsToDom(listArr) {
-            console.log("inside addListsToDom")
-            console.log(listArr) // arr of arr's rn 
+        console.log("inside addListsToDom")
         let listsIndex = document.getElementById("lists-index")
-         // 5. --- MAKE HTML CARDS
-        let htmlList = listArr.map((list) => list.createListCardHtml(list) + `<br>`)
 
+         // What I want:
+            // sort list titles alphabetically BEFORE turn into HTML
+            // i want to sort by obj's property value, and return those sorted objects back into an arr
+        listArr.sort((a, b) => a.title.localeCompare(b.title, 'en', { sensitivity: 'base' }, {ignorePunctuation: true}))  
+
+        let htmlList = listArr.map((list) => list.createListCardHtml(list) + `<br>`)
         listsIndex.innerHTML = htmlList
     }
     
-    // 5.  --- MAKE/RENDER HTML CARDS
+    // 5.  --- MAKE/RENDER HTML CARDS 
+    // 12.
     createListCardHtml(list) {
         // 6. --- Add in 1 Item or Iterate items array 
         // 7. --- ADD ITEMS 
@@ -158,6 +162,7 @@ class List {
             }
         }
 
+        // return to addListsToDOM() fn
         return `
             <div class="card" data-list-id="[${list.id}]"  border-color: black;"">
                 <div class="card-body text-center">
@@ -174,7 +179,7 @@ class List {
     }
 
 
-    
+    // 11
      // instanciate List, add attributes
     createOneListAndItemObject(data) {
         //console.log(data)
