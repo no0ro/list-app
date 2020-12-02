@@ -10,7 +10,7 @@ class App{
             // ^ before anything else, grab this el 
         this.bindFormSubmit()
     }   
-
+    // 8.
     bindFormSubmit() {
         this.formSubmit.addEventListener("click", function(e) {
             e.preventDefault()
